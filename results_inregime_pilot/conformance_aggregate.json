@@ -1,0 +1,29 @@
+{
+  "creator": {
+    "n_tools_preserved": 84,
+    "n_tools_with_capability_tests": 84,
+    "mean_held_out_correctness": 0.0488,
+    "mean_held_out_robustness": 0.5357,
+    "mean_held_out_generality": 0.119,
+    "n_tools_with_zero_correctness": 77,
+    "pct_silent_rot": 91.7
+  },
+  "oneshot": {
+    "n_tools_preserved": 119,
+    "n_tools_with_capability_tests": 119,
+    "mean_held_out_correctness": 0.0,
+    "mean_held_out_robustness": 0.5175,
+    "mean_held_out_generality": 0.0672,
+    "n_tools_with_zero_correctness": 119,
+    "pct_silent_rot": 100.0
+  },
+  "toolmaker": {
+    "n_tools_preserved": 19,
+    "n_tools_with_capability_tests": 19,
+    "mean_held_out_correctness": 0.0,
+    "mean_held_out_robustness": 0.5263,
+    "mean_held_out_generality": 0.0526,
+    "n_tools_with_zero_correctness": 19,
+    "pct_silent_rot": 100.0
+  }
+}

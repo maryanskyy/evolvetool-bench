@@ -32,6 +32,7 @@ import textwrap
 from typing import Any
 
 from ..harness.runner import AgentSystem
+from ..harness.safe_exec import call_with_timeout
 
 
 _MAX_RECTIFICATION_ROUNDS = 3
@@ -64,13 +65,13 @@ class CREATORStyleSystem(AgentSystem):
         for tool_def in seed_tools:
             self._register_tool(tool_def)
 
-    def run_task(self, task_description: str) -> dict:
+    def run_task(self, task_description: str, verify_fn=None) -> dict:
         self._tools_used = []
         self._tools_created_this_task = []
         self._llm_calls = 0
 
         # First try the task with the current library (seed + previously created tools)
-        output, succeeded = self._attempt_task(task_description)
+        output, succeeded = self._attempt_task(task_description, verify_fn=verify_fn)
 
         # If the agent didn't succeed, switch into the CREATOR protocol:
         # create → decide → rectify
@@ -334,7 +335,7 @@ class CREATORStyleSystem(AgentSystem):
 
     # ── Agent loop ─────────────────────────────────────────────────
 
-    def _attempt_task(self, task_description: str) -> tuple[str, bool]:
+    def _attempt_task(self, task_description: str, verify_fn=None) -> tuple[str, bool]:
         import litellm
 
         messages: list[dict] = [{"role": "user", "content": task_description}]
@@ -361,7 +362,7 @@ class CREATORStyleSystem(AgentSystem):
                 else:
                     try:
                         args = json.loads(tc.function.arguments)
-                        tool_result = str(fn(**args))
+                        tool_result = call_with_timeout(fn, args)
                     except Exception as e:
                         tool_result = f"Error: {e}"
                 messages.append({
@@ -370,9 +371,12 @@ class CREATORStyleSystem(AgentSystem):
                     "content": tool_result,
                 })
 
-        # Failure detection via LLM-judge (parallels Code-Evol/ARISE's reward_fn).
-        # Using output length alone proved too permissive — the agent produces *some*
-        # text for nearly every task, so the CREATOR protocol would never trigger.
+        # Prefer the external verifier (faster, deterministic); fall back to LLM judge.
+        if verify_fn is not None:
+            try:
+                return final_output, bool(verify_fn(final_output))
+            except Exception:
+                pass
         judge_score = self._judge_output(task_description, final_output)
         return final_output, judge_score >= 0.5
 

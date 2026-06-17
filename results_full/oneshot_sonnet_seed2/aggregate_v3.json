@@ -12,7 +12,7 @@
     "correctness": 0.0,
     "robustness": 0.5,
     "generality": 0.0,
-    "code_quality": 0.6111111111111112,
-    "tqs": 0.2777777777777778
+    "code_quality": 0.4444444444444444,
+    "tqs": 0.2361111111111111
   }
 }

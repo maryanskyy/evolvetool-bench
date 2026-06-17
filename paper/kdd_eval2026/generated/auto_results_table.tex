@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering\small
+\begin{tabular}{llccccccc}
+\toprule
+\textbf{System} & \textbf{Model} & $n$ & \textbf{ETS}$\uparrow$ & \textbf{TC (\%)} & \textbf{Tools} & \textbf{TQS} & \textbf{Reuse (\%)} & \textbf{LH (\%)} \\
+\midrule
+No-Evol & Sonnet & 4 & 0.439$\pm$0.007 & 67.6$\pm$0.7 & 0 & --- & 46.3$\pm$1.9 & 39.7$\pm$1.7 \\
+One-Shot & Sonnet & 4 & 0.443$\pm$0.010 & 67.4$\pm$1.1 & 3 & 0.044 & 44.4$\pm$2.6 & 38.6$\pm$2.4 \\
+Strategy-Only & Sonnet & 4 & 0.442$\pm$0.006 & 66.9$\pm$0.6 & 0 & --- & 50.0$\pm$4.1 & 41.2$\pm$1.6 \\
+CREATOR-style & Sonnet & 4 & \textbf{0.576$\pm$0.030} & 67.7$\pm$3.1 & 24 & 0.460 & 66.7$\pm$7.9 & 54.8$\pm$5.6 \\
+ToolCoder-style & Sonnet & 1 & 0.507 & 54.5 & 17 & 0.449 & 44.4 & 49.2 \\
+ToolMaker-style & Sonnet & 1 & 0.413 & 63.6 & 0 & --- & 40.7 & 36.4 \\
+Code-Evol & Sonnet & 4 & 0.543$\pm$0.014 & 64.9$\pm$0.9 & 21 & 0.354 & 72.2$\pm$4.1 & 51.6$\pm$2.9 \\
+\midrule
+No-Evol & Haiku & 1 & 0.439 & 66.7 & 0 & --- & 51.9 & 40.1 \\
+Code-Evol & Haiku & 1 & \textbf{0.546} & 65.2 & 13 & 0.353 & 66.7 & 51.2 \\
+\bottomrule
+\end{tabular}
+\caption{Headline results regenerated from \texttt{results\_canonical/run\_manifest.jsonl} by \texttt{scripts/make\_tables.py}. ETS uses the safety-free composite.}
+\label{tab:results_auto}
+\end{table*}

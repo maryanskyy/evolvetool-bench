@@ -1,0 +1,102 @@
+{
+  "creator": {
+    "system": "creator",
+    "n_runs": 24,
+    "mean_tc": 0.2869,
+    "se_tc": 0.0475,
+    "per_session_tc": {
+      "data_transform_s1": 0.5,
+      "data_transform_s2": 0.0,
+      "data_transform_s3": 0.4286,
+      "data_transform_s4": 0.375,
+      "data_transform_s5": 0.125,
+      "numerical_s1": 0.6667,
+      "numerical_s2": 0.0,
+      "numerical_s3": 0.2
+    },
+    "tools_created": 111,
+    "reuse_correct": 12,
+    "reuse_incorrect": 24,
+    "reuse_precision": 0.3333
+  },
+  "evoskill": {
+    "system": "evoskill",
+    "n_runs": 24,
+    "mean_tc": 0.3318,
+    "se_tc": 0.0618,
+    "per_session_tc": {
+      "data_transform_s1": 0.8333,
+      "data_transform_s2": 0.0,
+      "data_transform_s3": 0.5714,
+      "data_transform_s4": 0.5,
+      "data_transform_s5": 0.0,
+      "numerical_s1": 0.5,
+      "numerical_s2": 0.25,
+      "numerical_s3": 0.0
+    },
+    "tools_created": 0,
+    "reuse_correct": 9,
+    "reuse_incorrect": 27,
+    "reuse_precision": 0.25
+  },
+  "no_evolution": {
+    "system": "no_evolution",
+    "n_runs": 24,
+    "mean_tc": 0.337,
+    "se_tc": 0.0643,
+    "per_session_tc": {
+      "data_transform_s1": 0.8333,
+      "data_transform_s2": 0.0,
+      "data_transform_s3": 0.5714,
+      "data_transform_s4": 0.375,
+      "data_transform_s5": 0.0,
+      "numerical_s1": 0.6667,
+      "numerical_s2": 0.25,
+      "numerical_s3": 0.0
+    },
+    "tools_created": 0,
+    "reuse_correct": 9,
+    "reuse_incorrect": 18,
+    "reuse_precision": 0.3333
+  },
+  "oneshot": {
+    "system": "oneshot",
+    "n_runs": 24,
+    "mean_tc": 0.3579,
+    "se_tc": 0.0767,
+    "per_session_tc": {
+      "data_transform_s1": 0.8333,
+      "data_transform_s2": 0.0,
+      "data_transform_s3": 0.5714,
+      "data_transform_s4": 0.625,
+      "data_transform_s5": 0.0,
+      "numerical_s1": 0.8333,
+      "numerical_s2": 0.0,
+      "numerical_s3": 0.0
+    },
+    "tools_created": 114,
+    "reuse_correct": 18,
+    "reuse_incorrect": 36,
+    "reuse_precision": 0.3333
+  },
+  "toolmaker": {
+    "system": "toolmaker",
+    "n_runs": 24,
+    "mean_tc": 0.2924,
+    "se_tc": 0.0536,
+    "per_session_tc": {
+      "data_transform_s1": 0.5,
+      "data_transform_s2": 0.0,
+      "data_transform_s3": 0.7143,
+      "data_transform_s4": 0.375,
+      "data_transform_s5": 0.0,
+      "numerical_s1": 0.5,
+      "numerical_s2": 0.25,
+      "numerical_s3": 0.0
+    },
+    "tools_created": 18,
+    "reuse_correct": 9,
+    "reuse_incorrect": 15,
+    "reuse_precision": 0.375
+  }
+}

@@ -16,6 +16,7 @@ keywords = ["benchmark", "agents", "tools", "evaluation", "self-evolving", "llm"
 dependencies = [
     "pydantic>=2.0",
     "litellm>=1.0,!=1.82.8",
+    "radon>=6.0",
 ]
 
 [project.optional-dependencies]

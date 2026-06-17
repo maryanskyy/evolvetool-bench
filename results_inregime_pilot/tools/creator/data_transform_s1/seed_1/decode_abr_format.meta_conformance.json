@@ -1,0 +1,24 @@
+{
+  "name": "decode_abr_format",
+  "system": "creator",
+  "session_id": "data_transform_s1",
+  "seed": 1,
+  "model": "claude-haiku-4-5",
+  "created_at_task": "variant_1",
+  "scores_in_session": {
+    "tqs": 0.0,
+    "correctness": 0.0,
+    "robustness": 0.0,
+    "generality": 0.0,
+    "code_quality": 0.0
+  },
+  "n_hidden": 6,
+  "n_adversarial": 6,
+  "conformance": {
+    "tqs": 0.8055555555555556,
+    "correctness": 0.5,
+    "robustness": 0.8333333333333334,
+    "generality": 1.0,
+    "code_quality": 0.8888888888888888
+  }
+}

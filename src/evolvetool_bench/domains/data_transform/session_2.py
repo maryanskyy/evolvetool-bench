@@ -331,6 +331,7 @@ TASKS = [
             "For enum types, also include 'values' list."
         ),
         task_type=TaskType.GAP,
+        capability_id="vdl_schema_parse",
         expected=USER_VDL_PARSED,
         hidden_tests=[
             # v1
@@ -380,6 +381,7 @@ TASKS = [
             f"Records: {INVALID_USERS}"
         ),
         task_type=TaskType.GAP,
+        capability_id="vdl_record_validate",
         expected=INVALID_USERS_RESULTS,
         hidden_tests=[
             # v1
@@ -420,6 +422,7 @@ TASKS = [
             "Return the structured representation."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="vdl_schema_parse",
         reuses_task="gap_1",
         expected=PRODUCT_VDL_PARSED,
     ),
@@ -432,6 +435,7 @@ TASKS = [
             "Return validation results."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="vdl_record_validate",
         reuses_task="gap_2",
         expected=INVALID_PRODUCTS_RESULTS,
     ),
@@ -446,6 +450,7 @@ TASKS = [
             "First parse the VDL, then validate each record. Return validation results."
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="vdl_parse_plus_validate",
         composes_tasks=["gap_1", "gap_2"],
         expected=VALID_USERS_RESULTS,
     ),
@@ -463,6 +468,7 @@ TASKS = [
             "Return the structured representation."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="vdl_schema_parse",
         reuses_task="gap_1",
         expected={
             "name": "Sensor",
@@ -490,6 +496,7 @@ TASKS = [
             "Return the structured representation."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="vdl_schema_parse",
         breaks_task="gap_1",
     ),
     Task(
@@ -504,6 +511,7 @@ TASKS = [
             "Return validation results."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="vdl_record_validate",
         breaks_task="gap_2",
         expected=[
             {"valid": False, "errors": ["field 'username' expected string, got int"]},

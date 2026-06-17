@@ -76,6 +76,15 @@ def group_seeds(results_dir: str = "results_full") -> dict:
         # arise_sonnet_v2_seed1, arise_sonnet_v2_seed2 all belong together).
         if "_v2" in d:
             system = f"{system}-v2"
+        # Recompute ETS under the safety-free composite (ETS = 0.30*TC + 0.20*TQS
+        # + 0.10*(1-RC) + 0.40*LH). The stored avg_evolvetool_score used the old
+        # formula (0.25/0.20/0.10/0.30 + 0.15*safety). Because safety was a
+        # constant 1.0 and the RC term is unchanged, the exact transform is:
+        #   new = old - 0.15*safety + 0.05*TC + 0.10*LH   (safety == 1.0)
+        old_ets = data.get("avg_evolvetool_score", 0.0)
+        tc = data.get("avg_task_completion", 0.0)
+        lh = data.get("avg_library_health", 0.0)
+        data["avg_evolvetool_score"] = old_ets - 0.15 + 0.05 * tc + 0.10 * lh
         grouped[(system, model)].append(data)
     return grouped
 
@@ -245,18 +254,17 @@ def main():
     for k, v in sorted(grouped.items()):
         print(f"  {k}: n={len(v)}")
 
-    write_results_table(grouped, "paper/v2/auto_results_table.tex")
-    write_summary_csv(grouped, "paper/v2/auto_results_summary.csv")
-    write_comparison_figure(grouped, "paper/v2/fig_comparison.pdf")
-    # Also write to kdd2026/
-    write_results_table(grouped, "paper/kdd2026/auto_results_table.tex")
-    write_comparison_figure(grouped, "paper/kdd2026/fig_comparison.pdf")
+    # Canonical output dir for the KDD Eval 2026 submission.
+    os.makedirs("paper/kdd_eval2026", exist_ok=True)
+    write_results_table(grouped, "paper/kdd_eval2026/auto_results_table.tex")
+    write_summary_csv(grouped, "paper/kdd_eval2026/auto_results_summary.csv")
+    try:
+        write_comparison_figure(grouped, "paper/kdd_eval2026/fig_comparison.pdf")
+    except Exception as exc:  # matplotlib may be unavailable in some envs
+        print(f"  (skipped figure: {exc})")
     print("\nGenerated:")
-    print("  paper/v2/auto_results_table.tex")
-    print("  paper/v2/auto_results_summary.csv")
-    print("  paper/v2/fig_comparison.pdf")
-    print("  paper/kdd2026/auto_results_table.tex")
-    print("  paper/kdd2026/fig_comparison.pdf")
+    print("  paper/kdd_eval2026/auto_results_table.tex")
+    print("  paper/kdd_eval2026/auto_results_summary.csv")
 
 
 if __name__ == "__main__":

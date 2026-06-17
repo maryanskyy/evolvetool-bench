@@ -1,18 +1,18 @@
 {
   "config": "toolcoder-style_sonnet",
-  "n_tools": 15,
+  "n_tools": 13,
   "v1": {
-    "correctness": 0.4666666666666667,
+    "correctness": 0.46153846153846156,
     "robustness": 0.5,
-    "generality": 0.4666666666666667,
-    "code_quality": 0.9185185185185187,
-    "tqs": 0.587962962962963
+    "generality": 0.46153846153846156,
+    "code_quality": 0.9230769230769232,
+    "tqs": 0.5865384615384616
   },
   "v3": {
     "correctness": 0.0,
-    "robustness": 0.5166666666666667,
-    "generality": 0.1,
-    "code_quality": 0.9185185185185187,
-    "tqs": 0.38379629629629636
+    "robustness": 0.5384615384615384,
+    "generality": 0.10769230769230768,
+    "code_quality": 0.7094017094017094,
+    "tqs": 0.33888888888888885
   }
 }

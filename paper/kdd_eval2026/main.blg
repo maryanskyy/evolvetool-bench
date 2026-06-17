@@ -1,0 +1,99 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: ACM-Reference-Format.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Database file #1: references.bib
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--no number and no volume in alzubi2026evoskill
+Warning--page numbers missing in both pages and numpages fields in alzubi2026evoskill
+Warning--no number and no volume in backlund2025vendingbench
+Warning--page numbers missing in both pages and numpages fields in backlund2025vendingbench
+Warning--no number and no volume in bellur2024leroy
+Warning--page numbers missing in both pages and numpages fields in bellur2024leroy
+Warning--empty publisher in berlotattwell2026
+Warning--empty address in berlotattwell2026
+Warning--page numbers missing in both pages and numpages fields in berlotattwell2026
+Warning--page numbers missing in both pages and numpages fields in bowers2023stitch
+Warning--no number and no volume in cai2023latm
+Warning--page numbers missing in both pages and numpages fields in cai2023latm
+Warning--page numbers missing in both pages and numpages fields in cao2023babble
+Warning--empty publisher in ellis2021dreamcoder
+Warning--empty address in ellis2021dreamcoder
+Warning--page numbers missing in both pages and numpages fields in ellis2021dreamcoder
+Warning--no number and no volume in skillsbench2026
+Warning--page numbers missing in both pages and numpages fields in skillsbench2026
+Warning--empty publisher in liu2024agentbench
+Warning--empty address in liu2024agentbench
+Warning--page numbers missing in both pages and numpages fields in liu2024agentbench
+Warning--no number and no volume in toolcomp2025
+Warning--page numbers missing in both pages and numpages fields in toolcomp2025
+Warning--empty publisher in qian2023creator
+Warning--empty address in qian2023creator
+Warning--page numbers missing in both pages and numpages fields in qian2023creator
+Warning--no number and no volume in qin2023toolbench
+Warning--page numbers missing in both pages and numpages fields in qin2023toolbench
+Warning--no number and no volume in singhal2024nofuneval
+Warning--page numbers missing in both pages and numpages fields in singhal2024nofuneval
+Warning--no number and no volume in wang2023voyager
+Warning--page numbers missing in both pages and numpages fields in wang2023voyager
+Warning--empty publisher in wolflein2025toolmaker
+Warning--empty address in wolflein2025toolmaker
+Warning--page numbers missing in both pages and numpages fields in wolflein2025toolmaker
+Warning--no number and no volume in xia2026toolgenesis
+Warning--page numbers missing in both pages and numpages fields in xia2026toolgenesis
+Warning--no number and no volume in yuan2023craft
+Warning--page numbers missing in both pages and numpages fields in yuan2023craft
+Warning--no number and no volume in zenkner2024abstractbeam
+Warning--page numbers missing in both pages and numpages fields in zenkner2024abstractbeam
+Warning--no number and no volume in zhang2026coevoskills
+Warning--page numbers missing in both pages and numpages fields in zhang2026coevoskills
+You've used 20 entries,
+            6273 wiz_defined-function locations,
+            1608 strings with 23151 characters,
+and the built_in function-call counts, 23845 in all, are:
+= -- 3134
+> -- 1220
+< -- 0
++ -- 426
+- -- 410
+* -- 2011
+:= -- 2481
+add.period$ -- 100
+call.type$ -- 20
+change.case$ -- 211
+chr.to.int$ -- 20
+cite$ -- 63
+duplicate$ -- 1758
+empty$ -- 1273
+format.name$ -- 490
+if$ -- 5892
+int.to.chr$ -- 2
+int.to.str$ -- 1
+missing$ -- 85
+newline$ -- 207
+num.names$ -- 140
+pop$ -- 911
+preamble$ -- 1
+purify$ -- 371
+quote$ -- 0
+skip$ -- 531
+stack$ -- 0
+substring$ -- 1099
+swap$ -- 85
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 390
+warning$ -- 43
+while$ -- 64
+width$ -- 0
+write$ -- 406
+(There were 43 warnings)

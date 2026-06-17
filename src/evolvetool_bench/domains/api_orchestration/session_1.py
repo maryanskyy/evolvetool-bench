@@ -97,6 +97,7 @@ TASKS = [
             "Return the list of users from the first page."
         ),
         task_type=TaskType.GAP,
+        capability_id="hmac_sha256_auth",
         hidden_tests=[
             # v1
             {"input": {"url": f"{BASE_URL}/api/users"},
@@ -130,6 +131,7 @@ TASKS = [
             "has_more is false. Return the total number of users and their names."
         ),
         task_type=TaskType.GAP,
+        capability_id="cursor_pagination",
         hidden_tests=[
             # v1
             {"input": {}, "verify": "'10' in str(result) or 'Jack' in str(result)"},
@@ -162,6 +164,7 @@ TASKS = [
             "Use the same auth scheme as before. Return the user's details."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="hmac_sha256_auth",
         reuses_task="gap_1",
     ),
     Task(
@@ -172,6 +175,7 @@ TASKS = [
             "Return the total count of metrics."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="cursor_pagination",
         reuses_task="gap_2",
     ),
 
@@ -183,6 +187,7 @@ TASKS = [
             "then compute the average score across all users. Return the average."
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="auth_plus_pagination",
         composes_tasks=["gap_1", "gap_2"],
     ),
 
@@ -194,6 +199,7 @@ TASKS = [
             "This is the same task as before — your auth and fetch tools should still work."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="hmac_sha256_auth",
         reuses_task="gap_1",
     ),
 
@@ -206,6 +212,7 @@ TASKS = [
             "If auth fails, retry with a fresh timestamp. Handle 401 errors gracefully."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="hmac_sha256_auth",
         breaks_task="gap_1",
     ),
     Task(
@@ -216,6 +223,7 @@ TASKS = [
             "Return both result sets. Handle any API errors gracefully."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="cursor_pagination",
         breaks_task="gap_2",
     ),
 ]

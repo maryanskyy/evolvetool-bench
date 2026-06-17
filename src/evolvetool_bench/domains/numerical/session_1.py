@@ -171,6 +171,7 @@ TASKS = [
             "rounded to 6 decimal places."
         ),
         task_type=TaskType.GAP,
+        capability_id="arcfit_curve_fit",
         expected={"a": round(_EXP_TRUE["a"], 6), "b": round(_EXP_TRUE["b"], 6), "c": round(_EXP_TRUE["c"], 6)},
         hidden_tests=[
             # v1
@@ -208,6 +209,7 @@ TASKS = [
             "Return a JSON list of predicted y values, each rounded to 6 decimal places."
         ),
         task_type=TaskType.GAP,
+        capability_id="arcfit_model_evaluate",
         expected=_EVAL_EXP_EXPECTED,
         hidden_tests=[
             # v1
@@ -247,6 +249,7 @@ TASKS = [
             "Return a JSON object with fitted parameter values (rounded to 6 dp)."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="arcfit_curve_fit",
         reuses_task="gap_1",
         expected={k: round(v, 6) for k, v in _POW_TRUE.items()},
     ),
@@ -258,6 +261,7 @@ TASKS = [
             "Return a JSON list of predicted y values (rounded to 6 dp)."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="arcfit_model_evaluate",
         reuses_task="gap_2",
         expected=_EVAL_POW_EXPECTED,
     ),
@@ -272,6 +276,7 @@ TASKS = [
             "Return a JSON object with keys 'fitted_params', 'predictions', and 'stats'."
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="arcfit_fit_evaluate_stats",
         composes_tasks=["gap_1", "gap_2", "seed_1"],
     ),
 
@@ -284,6 +289,7 @@ TASKS = [
             "Return a JSON object with fitted parameter values (rounded to 6 dp)."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="arcfit_curve_fit",
         reuses_task="gap_1",
         expected={k: round(v, 6) for k, v in _EXP2_TRUE.items()},
     ),
@@ -300,6 +306,7 @@ TASKS = [
             "Accept any result where c ≈ 100.0 (±0.5) since a and b are poorly constrained."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="arcfit_curve_fit",
         breaks_task="gap_1",
     ),
     Task(
@@ -312,6 +319,7 @@ TASKS = [
             "For x=100 the result should be effectively 0 (exp underflow is fine, treat as 0)."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="arcfit_model_evaluate",
         breaks_task="gap_2",
         expected=_EVAL_EDGE_EXPECTED,
     ),

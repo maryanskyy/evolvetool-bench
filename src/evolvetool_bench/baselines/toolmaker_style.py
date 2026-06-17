@@ -28,6 +28,7 @@ import textwrap
 from typing import Any
 
 from ..harness.runner import AgentSystem
+from ..harness.safe_exec import call_with_timeout
 
 
 _MAX_ITERATIONS = 3
@@ -60,10 +61,11 @@ class ToolMakerStyleSystem(AgentSystem):
         for tool_def in seed_tools:
             self._register_tool(tool_def)
 
-    def run_task(self, task_description: str) -> dict:
+    def run_task(self, task_description: str, verify_fn=None) -> dict:
         self._tools_used = []
         self._tools_created_this_task = []
         self._llm_calls = 0
+        self._verify_fn = verify_fn
 
         output, succeeded = self._attempt_task(task_description)
 
@@ -391,7 +393,7 @@ class ToolMakerStyleSystem(AgentSystem):
                 else:
                     try:
                         args = json.loads(tc.function.arguments)
-                        tool_result = str(fn(**args))
+                        tool_result = call_with_timeout(fn, args)
                     except Exception as e:
                         tool_result = f"Error: {e}"
                 messages.append({
@@ -400,11 +402,13 @@ class ToolMakerStyleSystem(AgentSystem):
                     "content": tool_result,
                 })
 
-        # Failure detection via LLM-judge — same gating as Code-Evol/ARISE so the
-        # diagnose-and-fix loop is triggered when an agent's attempt is bad, not just
-        # when it crashes. The original ToolMaker pipeline uses unit-test pass/fail as
-        # the trigger; we have no reference tests in our open-task harness, so we
-        # substitute a judge-based proxy.
+        # Prefer external verifier if available; otherwise use LLM judge.
+        verify_fn = getattr(self, "_verify_fn", None)
+        if verify_fn is not None:
+            try:
+                return final_output, bool(verify_fn(final_output))
+            except Exception:
+                pass
         judge_score = self._judge_output(task_description, final_output)
         return final_output, judge_score >= 0.5
 

@@ -1,18 +1,18 @@
 {
   "config": "arise_sonnet_v2",
-  "n_tools": 15,
+  "n_tools": 13,
   "v1": {
-    "correctness": 0.3,
-    "robustness": 0.5333333333333333,
-    "generality": 0.43333333333333335,
-    "code_quality": 0.9481481481481481,
-    "tqs": 0.5537037037037037
+    "correctness": 0.2692307692307692,
+    "robustness": 0.5384615384615384,
+    "generality": 0.4230769230769231,
+    "code_quality": 0.9401709401709402,
+    "tqs": 0.5427350427350427
   },
   "v3": {
-    "correctness": 0.006666666666666667,
-    "robustness": 0.55,
-    "generality": 0.11333333333333333,
-    "code_quality": 0.9481481481481481,
-    "tqs": 0.4045370370370371
+    "correctness": 0.007692307692307693,
+    "robustness": 0.5576923076923077,
+    "generality": 0.14615384615384613,
+    "code_quality": 0.735042735042735,
+    "tqs": 0.36164529914529925
   }
 }

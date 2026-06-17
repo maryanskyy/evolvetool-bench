@@ -1,0 +1,17 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Strict verified-subset pilot. TC is computed only on tasks with deterministic verifiers; unverified tasks are reported separately and excluded from the TC denominator. Means and standard errors are over 24 session rows (3 seeds $\times$ 8 verified-subset sessions) using Claude Haiku 4.5.}
+\label{tab:strict-results}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{System} & \textbf{TC} & \textbf{SE} & \textbf{Tools} & \textbf{Correct-reuse rate} \\
+\midrule
+One-Shot & 0.358 & 0.077 & 114 & 0.333 \\
+No-Evolution & 0.337 & 0.064 & 0 & 0.333 \\
+EvoSkill-style & 0.332 & 0.062 & 0 & 0.250 \\
+ToolMaker-style & 0.292 & 0.054 & 18 & 0.375 \\
+CREATOR-style & 0.287 & 0.048 & 111 & 0.333 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -125,6 +125,26 @@ _SPECTRUM1 = _fft_spectrum(_SAMPLES1, _SR)
 # We can't easily compute this without numpy here; we record the ARCSIG string
 # produced by a reference implementation. Instead store the filter spec and
 # let the evaluator verify by re-running the agent's tool.
+def _bandpass_verify(low: float, high: float) -> str:
+    """Build a verify expression that decodes a returned ARCSIG string and
+    checks the dominant DFT frequency lies in [low, high] Hz with out-of-band
+    magnitude below 1e-3 of the in-band peak. Accepts both ENC: and ENC=
+    header separators. A single eval-able expression, as the harness requires."""
+    return (
+        "(lambda res: isinstance(res, str) and res.startswith('ARCSIG') and "
+        "(lambda parts: (lambda sr, xs: (lambda n: (lambda mags: (lambda inb, outb: "
+        f"max(inb) > 0 and ({low} <= ([k for k, m in enumerate(mags) if m == max(inb)][0]) * sr / n <= {high}) "
+        "and (max(outb) if outb else 0.0) < 1e-3 * max(inb)"
+        f")([m for k, m in enumerate(mags) if k > 0 and {low} <= k * sr / n <= {high}], "
+        f"[m for k, m in enumerate(mags) if k > 0 and not ({low} <= k * sr / n <= {high})])"
+        ")([abs(sum(xs[j] * __import__('cmath').exp(-2j * __import__('cmath').pi * j * k / n) for j in range(n))) for k in range(n // 2 + 1)])"
+        ")(len(xs)))("
+        "int([p for p in parts if p.replace('=', ':').startswith('SR')][0].replace('=', ':').split(':')[-1]), "
+        "__import__('struct').unpack('<%df' % (len(__import__('base64').b64decode(parts[-1])) // 4), __import__('base64').b64decode(parts[-1]))"
+        "))(res.split(';')))(result)"
+    )
+
+
 BANDPASS_SPEC_1 = "BANDPASS:1,10"    # keep 5 Hz, reject 20 Hz
 BANDPASS_SPEC_2 = "BANDPASS:15,45"   # keep 20 Hz from signal 1, reject 5 Hz
 BANDPASS_SPEC_3 = "BANDPASS:1,12"    # keep 10 Hz from signal 2
@@ -181,6 +201,7 @@ TASKS = [
             "Return a JSON list of objects: [{\"freq_hz\": ..., \"magnitude\": ...}, ...]"
         ),
         task_type=TaskType.GAP,
+        capability_id="arcsig_fft_spectrum",
         expected=_SPECTRUM1,
         hidden_tests=[
             # v1
@@ -225,11 +246,17 @@ TASKS = [
             "Return the filtered ARCSIG string."
         ),
         task_type=TaskType.GAP,
+        capability_id="arcsig_bandpass_filter",
         # Verifier checks that decoded filtered signal has dominant freq in [1,10] Hz
         hidden_tests=[
-            # v1
-            {"input": {"arcsig": ARCSIG_2, "bandpass": BANDPASS_SPEC_3}},
-            {"input": {"arcsig": ARCSIG_1, "bandpass": BANDPASS_SPEC_2}},
+            # v1 — verify decodes the returned ARCSIG and checks the dominant
+            # frequency lies in the passband with out-of-band energy suppressed
+            # (these two tests originally had neither "expected" nor "verify",
+            # making them unpassable by construction; fixed in v3.1)
+            {"input": {"arcsig": ARCSIG_2, "bandpass": BANDPASS_SPEC_3},
+             "verify": _bandpass_verify(1, 12)},
+            {"input": {"arcsig": ARCSIG_1, "bandpass": BANDPASS_SPEC_2},
+             "verify": _bandpass_verify(15, 45)},
             # v3 expansion
             {"input": {"arcsig": ARCSIG_1, "bandpass": "BANDPASS:0,1000"},
              "verify": "isinstance(result, str) and 'ARCSIG' in result"},
@@ -260,6 +287,7 @@ TASKS = [
             "Return a JSON list of {\"freq_hz\": ..., \"magnitude\": ...} objects."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="arcsig_fft_spectrum",
         reuses_task="gap_1",
         expected=_fft_spectrum(_SAMPLES2, _SR),
     ),
@@ -272,6 +300,7 @@ TASKS = [
             "Return the filtered ARCSIG string."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="arcsig_bandpass_filter",
         reuses_task="gap_2",
     ),
 
@@ -288,6 +317,7 @@ TASKS = [
             "and 'stats' (mean, median, std of the filtered samples)."
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="arcsig_filter_plus_stats",
         composes_tasks=["gap_1", "gap_2", "seed_1"],
     ),
 
@@ -301,6 +331,7 @@ TASKS = [
             "Return a JSON list of {\"freq_hz\": ..., \"magnitude\": ...} objects."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="arcsig_fft_spectrum",
         reuses_task="gap_1",
         expected=_fft_spectrum(_SAMPLES3, _SR),
     ),
@@ -317,6 +348,7 @@ TASKS = [
             "The DC bin (freq_hz=0) magnitude should be approximately 100."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="arcsig_fft_spectrum",
         breaks_task="gap_1",
         expected=_fft_spectrum(_SAMPLES_ADV, _SR),
     ),
@@ -332,6 +364,7 @@ TASKS = [
             "Return the filtered ARCSIG string. All sample magnitudes should be < 0.01."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="arcsig_bandpass_filter",
         breaks_task="gap_2",
     ),
 ]

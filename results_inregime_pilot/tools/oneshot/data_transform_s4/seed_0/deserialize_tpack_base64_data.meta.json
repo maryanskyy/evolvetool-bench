@@ -1,0 +1,16 @@
+{
+  "name": "deserialize_tpack_base64_data",
+  "system": "oneshot",
+  "session_id": "data_transform_s4",
+  "seed": 0,
+  "model": "claude-haiku-4-5",
+  "created_at_task": "adversarial_1",
+  "version": 1,
+  "scores_in_session": {
+    "tqs": 0.0,
+    "correctness": 0.0,
+    "robustness": 0.0,
+    "generality": 0.0,
+    "code_quality": 0.0
+  }
+}

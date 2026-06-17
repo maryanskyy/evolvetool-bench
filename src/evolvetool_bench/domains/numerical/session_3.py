@@ -255,6 +255,7 @@ TASKS = [
             "'constraints' (list of {lhs, op, rhs}), and 'bounds' (null for ±inf)."
         ),
         task_type=TaskType.GAP,
+        capability_id="arcopt_problem_parse",
         expected=_PARSED_1,
         hidden_tests=[
             # v1
@@ -291,6 +292,7 @@ TASKS = [
             "Round all values to 6 decimal places."
         ),
         task_type=TaskType.GAP,
+        capability_id="arcopt_optimize_solve",
         expected=_SOLVED_1,
         hidden_tests=[
             # v1
@@ -325,6 +327,7 @@ TASKS = [
             "Return the structured JSON representation."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="arcopt_problem_parse",
         reuses_task="gap_1",
         expected=_PARSED_2,
     ),
@@ -336,6 +339,7 @@ TASKS = [
             "Return {\"minimum\": ..., \"at\": {...}} rounded to 6 dp."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="arcopt_optimize_solve",
         reuses_task="gap_2",
         expected=_SOLVED_3,
     ),
@@ -355,6 +359,7 @@ TASKS = [
             "  'stats': {mean, median, std} of boundary objective values"
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="arcopt_parse_solve_boundary_stats",
         composes_tasks=["gap_1", "gap_2", "seed_2"],
     ),
 
@@ -367,6 +372,7 @@ TASKS = [
             "Return the structured JSON representation."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="arcopt_problem_parse",
         reuses_task="gap_1",
         expected={
             "vars": ["x1", "x2"],
@@ -392,6 +398,7 @@ TASKS = [
             "e.g. {\"error\": \"infeasible\", \"detail\": \"...\"}"
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="arcopt_optimize_solve",
         breaks_task="gap_2",
     ),
     Task(
@@ -406,6 +413,7 @@ TASKS = [
             "e.g. {\"error\": \"unbounded\", \"detail\": \"...\"}"
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="arcopt_optimize_solve",
         breaks_task="gap_2",
     ),
 ]

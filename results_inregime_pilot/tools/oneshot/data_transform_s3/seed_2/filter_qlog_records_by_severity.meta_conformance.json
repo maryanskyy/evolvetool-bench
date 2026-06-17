@@ -1,0 +1,24 @@
+{
+  "name": "filter_qlog_records_by_severity",
+  "system": "oneshot",
+  "session_id": "data_transform_s3",
+  "seed": 2,
+  "model": "claude-haiku-4-5",
+  "created_at_task": "gap_2",
+  "scores_in_session": {
+    "tqs": 0.0,
+    "correctness": 0.0,
+    "robustness": 0.0,
+    "generality": 0.0,
+    "code_quality": 0.0
+  },
+  "n_hidden": 5,
+  "n_adversarial": 6,
+  "conformance": {
+    "tqs": 0.3472222222222222,
+    "correctness": 0.0,
+    "robustness": 0.5,
+    "generality": 0.0,
+    "code_quality": 0.8888888888888888
+  }
+}

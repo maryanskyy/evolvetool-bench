@@ -19,3 +19,15 @@ paper/*.out
 paper/src/
 texput.log
 *.out
+.venv/
+
+# LaTeX build intermediates
+*.fls
+*.fdb_latexmk
+supplement.aux
+supplement.log
+supplement.out
+supplement.bbl
+supplement.blg
+results_strict_run/
+*.log

@@ -1,0 +1,24 @@
+{
+  "name": "parse_arcopt_specification",
+  "system": "creator",
+  "session_id": "numerical_s3",
+  "seed": 0,
+  "model": "claude-haiku-4-5",
+  "created_at_task": "variant_1",
+  "scores_in_session": {
+    "tqs": 0.0,
+    "correctness": 0.0,
+    "robustness": 0.0,
+    "generality": 0.0,
+    "code_quality": 0.0
+  },
+  "n_hidden": 5,
+  "n_adversarial": 6,
+  "conformance": {
+    "tqs": 0.29166666666666663,
+    "correctness": 0.0,
+    "robustness": 0.5,
+    "generality": 0.0,
+    "code_quality": 0.6666666666666666
+  }
+}

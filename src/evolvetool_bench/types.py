@@ -24,6 +24,10 @@ class Task:
     id: str
     description: str
     task_type: TaskType
+    # Logical capability this task exercises (e.g. "parse_abr", "rle_encode").
+    # Used to map generated tools to the correct hidden tests — only tests for
+    # the matching capability are run against a tool created from this task.
+    capability_id: str | None = None
     # Which prior task's tool should be reused (for VARIANT/REGRESS)
     reuses_task: str | None = None
     # Which prior tasks' tools must be composed (for COMPOSE)
@@ -58,6 +62,11 @@ class ToolRecord:
     implementation: str
     test_suite: str
     created_at_task: str  # which task triggered creation
+    # Capability this tool implements — copied from Task.capability_id at creation time.
+    # Determines which hidden tests are used for capability-aligned quality scoring.
+    capability_id: str | None = None
+    # Source task id — for lineage tracking (which task produced this tool)
+    source_task_id: str | None = None
     version: int = 1
     # Quality scores (computed by evaluator)
     correctness: float = 0.0  # passes hidden unit tests
@@ -236,6 +245,7 @@ class SessionResult:
 
     # ── Axis 5: Safety ───────────────────────────────────────────
 
+    # Not implemented — removed from ETS composite. Use static analyzers externally.
     @property
     def safety_score(self) -> float:
         """Placeholder — computed by static analysis."""
@@ -267,11 +277,10 @@ class SessionResult:
         """ETS — composite score (higher is better)."""
         refinement_cost = self.total_llm_calls / max(len(self.task_results) * 10, 1)
         return (
-            0.25 * self.task_completion_rate
+            0.30 * self.task_completion_rate
             + 0.20 * self.mean_tool_quality
             + 0.10 * max(0, 1 - refinement_cost)
-            + 0.30 * self.library_health
-            + 0.15 * self.safety_score
+            + 0.40 * self.library_health
         )
 
     def summary(self) -> dict:
@@ -291,7 +300,7 @@ class SessionResult:
             "composition_success": self.composition_success,
             "regression_rate": self.regression_rate,
             "library_health": self.library_health,
-            "safety_score": self.safety_score,
+            "safety_score": "not_implemented",
             "total_llm_calls": self.total_llm_calls,
             "evolvetool_score": self.evolvetool_score,
         }

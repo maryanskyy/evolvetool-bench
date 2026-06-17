@@ -61,7 +61,7 @@ def _get_fn_name(implementation: str) -> str:
 def _eval_correctness(tool: ToolRecord, hidden_tests: list[dict]) -> float:
     """Run hidden unit tests — proportion that pass."""
     if not hidden_tests:
-        return 0.5  # no tests = unknown
+        return float("nan")  # not_applicable — no tests provided
     fn_name = _get_fn_name(tool.implementation)
     passed = 0
     for test in hidden_tests:
@@ -82,7 +82,7 @@ def _eval_correctness(tool: ToolRecord, hidden_tests: list[dict]) -> float:
 def _eval_robustness(tool: ToolRecord, adversarial_tests: list[dict]) -> float:
     """Run adversarial edge cases — proportion that don't crash."""
     if not adversarial_tests:
-        return 0.5
+        return float("nan")  # not_applicable — no tests provided
     fn_name = _get_fn_name(tool.implementation)
     survived = 0
     for test in adversarial_tests:
@@ -101,7 +101,7 @@ def _eval_generality(tool: ToolRecord, hidden_tests: list[dict]) -> float:
     # Uses the same hidden tests but checks if tool handles varied inputs
     # (vs correctness which checks exact outputs)
     if not hidden_tests:
-        return 0.5
+        return float("nan")  # not_applicable — no tests provided
     fn_name = _get_fn_name(tool.implementation)
     worked = 0
     for test in hidden_tests:

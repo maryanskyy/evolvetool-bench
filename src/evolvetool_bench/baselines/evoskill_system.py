@@ -23,6 +23,7 @@ import re
 from typing import Any
 
 from ..harness.runner import AgentSystem
+from ..harness.safe_exec import call_with_timeout
 
 
 # ---------------------------------------------------------------------------
@@ -190,11 +191,12 @@ class EvoSkillSystem(AgentSystem):
                 "test_suite": tool_def.get("test_suite", ""),
             })
 
-    def run_task(self, task_description: str) -> dict:
+    def run_task(self, task_description: str, verify_fn=None) -> dict:
         import litellm
 
         self._tools_used = []
         self._llm_calls = 0
+        self._verify_fn = verify_fn
 
         # 1. Retrieve relevant strategies and build an augmented system prompt
         relevant = self._find_relevant_strategies(task_description)
@@ -224,7 +226,14 @@ class EvoSkillSystem(AgentSystem):
 
             if not msg.tool_calls:
                 final_output = msg.content or ""
-                success = len(final_output) > 20
+                vfn = getattr(self, "_verify_fn", None)
+                if vfn is not None:
+                    try:
+                        success = bool(vfn(final_output))
+                    except Exception:
+                        success = len(final_output) > 20
+                else:
+                    success = len(final_output) > 20
                 break
 
             messages.append(msg)
@@ -236,7 +245,7 @@ class EvoSkillSystem(AgentSystem):
                 else:
                     try:
                         args = json.loads(tc.function.arguments)
-                        tool_result = str(fn(**args))
+                        tool_result = call_with_timeout(fn, args)
                     except Exception as e:
                         tool_result = f"Error: {e}"
                 messages.append({

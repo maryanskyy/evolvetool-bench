@@ -284,6 +284,7 @@ TASKS = [
             "Return the deserialized Python data structure."
         ),
         task_type=TaskType.GAP,
+        capability_id="tpack_deserialize",
         expected=USERS_DATA,
         hidden_tests=[
             # v1
@@ -318,6 +319,7 @@ TASKS = [
             "Return the matching records."
         ),
         task_type=TaskType.GAP,
+        capability_id="tpack_record_query",
         expected=ACTIVE_USERS,
         hidden_tests=[
             # v1
@@ -354,6 +356,7 @@ TASKS = [
             "Return the deserialized data."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="tpack_deserialize",
         reuses_task="gap_1",
         expected=PRODUCTS_DATA,
     ),
@@ -365,6 +368,7 @@ TASKS = [
             "Return matching records."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="tpack_record_query",
         reuses_task="gap_2",
         expected=EXPENSIVE_PRODUCTS,
     ),
@@ -379,6 +383,7 @@ TASKS = [
             "Return the filtered records."
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="tpack_deserialize_plus_query",
         composes_tasks=["gap_1", "gap_2"],
         expected=AVAILABLE_PRODUCTS,
     ),
@@ -392,6 +397,7 @@ TASKS = [
             "Return the deserialized data."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="tpack_deserialize",
         reuses_task="gap_1",
         expected=ORDERS_DATA,
     ),
@@ -410,6 +416,7 @@ TASKS = [
             "Return the deserialized data."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="tpack_deserialize",
         breaks_task="gap_1",
         expected=NESTED_DATA,
     ),
@@ -422,6 +429,7 @@ TASKS = [
             "Return a list of SKU strings: ['WDG-001', 'GDG-002']"
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="tpack_record_query",
         breaks_task="gap_2",
         expected=["WDG-001", "GDG-002"],
     ),

@@ -318,6 +318,7 @@ TASKS = [
             "All blocks should have valid CRC and parity."
         ),
         task_type=TaskType.GAP,
+        capability_id="guardian_decode_verify",
         expected={
             "text": TEXT_1,
             "blocks": len(list(range(0, len(TEXT_1.encode('utf-8')), 16))),
@@ -368,6 +369,7 @@ TASKS = [
             "- 'repair_success': True if all blocks now pass CRC"
         ),
         task_type=TaskType.GAP,
+        capability_id="guardian_block_repair",
         expected={
             "repaired_text": TEXT_3,
             "corrupted_blocks": [1],
@@ -407,6 +409,7 @@ TASKS = [
             "Return text, blocks count, and integrity results."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="guardian_decode_verify",
         reuses_task="gap_1",
         expected={
             "text": TEXT_2,
@@ -423,6 +426,7 @@ TASKS = [
             "Return repaired text, corrupted block IDs, and repair success status."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="guardian_block_repair",
         reuses_task="gap_2",
         expected={
             "repaired_text": TEXT_4,
@@ -441,6 +445,7 @@ TASKS = [
             "Return: {{'text': repaired_text, 'was_corrupted': bool, 'blocks_repaired': int}}"
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="guardian_decode_verify_repair",
         composes_tasks=["gap_1", "gap_2"],
         expected={
             "text": TEXT_3,
@@ -458,6 +463,7 @@ TASKS = [
             "Return text and integrity results."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="guardian_decode_verify",
         reuses_task="gap_1",
         expected={
             "text": "Regression test: GUARDIAN format still works!",
@@ -484,6 +490,7 @@ TASKS = [
             "Return corrupted_blocks list and repair_success status."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="guardian_block_repair",
         breaks_task="gap_2",
         expected={
             "corrupted_blocks": [0, 3],
@@ -502,6 +509,7 @@ TASKS = [
             "Return the decoded text and verify integrity."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="guardian_decode_verify",
         breaks_task="gap_1",
         expected={
             "text": TEXT_TINY,

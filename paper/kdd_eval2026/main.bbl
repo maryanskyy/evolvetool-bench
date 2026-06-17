@@ -1,0 +1,207 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{13}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Alzubi et~al\mbox{.}(2026)]%
+        {alzubi2026evoskill}
+\bibfield{author}{\bibinfo{person}{Salaheddin Alzubi}, \bibinfo{person}{Noah
+  Provenzano}, \bibinfo{person}{Jaydon Bingham}, \bibinfo{person}{Weiyuan
+  Chen}, {and} \bibinfo{person}{Tu Vu}.} \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{EvoSkill: Automated Skill Discovery for Multi-Agent
+  Systems}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2603.02766}}
+  (\bibinfo{year}{2026}).
+\newblock
+
+
+\bibitem[Backlund and Petersson(2025)]%
+        {backlund2025vendingbench}
+\bibfield{author}{\bibinfo{person}{Axel Backlund} {and} \bibinfo{person}{Lukas
+  Petersson}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{Vending-Bench: A Benchmark for Long-Term Coherence
+  of Autonomous Agents}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2502.15840}}
+  (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Cai et~al\mbox{.}(2023)]%
+        {cai2023latm}
+\bibfield{author}{\bibinfo{person}{Tianle Cai}, \bibinfo{person}{Xuezhi Wang},
+  \bibinfo{person}{Tengyu Ma}, \bibinfo{person}{Xinyun Chen}, {and}
+  \bibinfo{person}{Denny Zhou}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Large Language Models as Tool Makers}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2305.17126}}
+  (\bibinfo{year}{2023}).
+\newblock
+
+
+\bibitem[Ellis et~al\mbox{.}(2021)]%
+        {ellis2021dreamcoder}
+\bibfield{author}{\bibinfo{person}{Kevin Ellis}, \bibinfo{person}{Catherine
+  Wong}, \bibinfo{person}{Maxwell Nye}, \bibinfo{person}{Mathias
+  Sabl{\'e}-Meyer}, \bibinfo{person}{Lucas Morales}, \bibinfo{person}{Luke
+  Hewitt}, \bibinfo{person}{Luc Cary}, \bibinfo{person}{Armando Solar-Lezama},
+  {and} \bibinfo{person}{Joshua~B. Tenenbaum}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{DreamCoder: Bootstrapping Inductive Program
+  Synthesis with Wake-Sleep Library Learning}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the 42nd ACM SIGPLAN International
+  Conference on Programming Language Design and Implementation}}.
+\newblock
+
+
+\bibitem[Li et~al\mbox{.}(2026)]%
+        {skillsbench2026}
+\bibfield{author}{\bibinfo{person}{Xiangyi Li}, \bibinfo{person}{Wenbo Chen},
+  \bibinfo{person}{Yimin Liu}, \bibinfo{person}{Shenghan Zheng},
+  \bibinfo{person}{Xiaokun Chen}, {et~al\mbox{.}}}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{SkillsBench: Benchmarking How Well Agent Skills
+  Work Across Diverse Tasks}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2602.12670}}
+  (\bibinfo{year}{2026}).
+\newblock
+
+
+\bibitem[Liu et~al\mbox{.}(2024)]%
+        {liu2024agentbench}
+\bibfield{author}{\bibinfo{person}{Xiao Liu}, \bibinfo{person}{Hao Yu},
+  \bibinfo{person}{Hanchen Zhang}, \bibinfo{person}{Yifan Xu},
+  \bibinfo{person}{Xuanyu Lei}, \bibinfo{person}{Hanyu Lai},
+  \bibinfo{person}{Yu Gu}, \bibinfo{person}{Hangliang Ding},
+  \bibinfo{person}{Kaiwen Men}, \bibinfo{person}{Kejuan Yang}, {et~al\mbox{.}}}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{AgentBench: Evaluating LLMs as Agents}. In
+  \bibinfo{booktitle}{\emph{International Conference on Learning
+  Representations}}.
+\newblock
+
+
+\bibitem[Qian et~al\mbox{.}(2023)]%
+        {qian2023creator}
+\bibfield{author}{\bibinfo{person}{Cheng Qian}, \bibinfo{person}{Chi Han},
+  \bibinfo{person}{Yi~R. Fung}, \bibinfo{person}{Yujia Qin},
+  \bibinfo{person}{Zhiyuan Liu}, {and} \bibinfo{person}{Heng Ji}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{CREATOR: Tool Creation for Disentangling Abstract
+  and Concrete Reasoning of Large Language Models}. In
+  \bibinfo{booktitle}{\emph{Findings of the Association for Computational
+  Linguistics: EMNLP 2023}}.
+\newblock
+
+
+\bibitem[Qin et~al\mbox{.}(2023)]%
+        {qin2023toolbench}
+\bibfield{author}{\bibinfo{person}{Yujia Qin}, \bibinfo{person}{Shihao Liang},
+  \bibinfo{person}{Yining Ye}, \bibinfo{person}{Kunlun Zhu},
+  \bibinfo{person}{Lan Yan}, \bibinfo{person}{Yaxi Lu}, \bibinfo{person}{Yankai
+  Lin}, {et~al\mbox{.}}} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{ToolLLM: Facilitating Large Language Models to
+  Master 16000+ Real-world APIs}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2307.16789}}
+  (\bibinfo{year}{2023}).
+\newblock
+
+
+\bibitem[Singhal et~al\mbox{.}(2024)]%
+        {singhal2024nofuneval}
+\bibfield{author}{\bibinfo{person}{Manav Singhal}, \bibinfo{person}{Tushar
+  Aggarwal}, \bibinfo{person}{Abhijeet Awasthi}, \bibinfo{person}{Nagarajan
+  Natarajan}, {and} \bibinfo{person}{Aditya Kanade}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{NoFunEval: Funny How Code LMs Falter on
+  Requirements Beyond Functional Correctness}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2401.15963}}
+  (\bibinfo{year}{2024}).
+\newblock
+
+
+\bibitem[Wang et~al\mbox{.}(2023)]%
+        {wang2023voyager}
+\bibfield{author}{\bibinfo{person}{Guanzhi Wang}, \bibinfo{person}{Yuqi Xie},
+  \bibinfo{person}{Yunfan Jiang}, \bibinfo{person}{Ajay Mandlekar},
+  \bibinfo{person}{Chaowei Xiao}, \bibinfo{person}{Yuke Zhu},
+  \bibinfo{person}{Linxi Fan}, {and} \bibinfo{person}{Anima Anandkumar}.}
+  \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Voyager: An Open-Ended Embodied Agent with Large
+  Language Models}.
+\newblock \bibinfo{journal}{\emph{Advances in Neural Information Processing
+  Systems}} (\bibinfo{year}{2023}).
+\newblock
+
+
+\bibitem[W{\"o}lflein et~al\mbox{.}(2025)]%
+        {wolflein2025toolmaker}
+\bibfield{author}{\bibinfo{person}{Georg W{\"o}lflein}, \bibinfo{person}{Dyke
+  Ferber}, \bibinfo{person}{Daniel Truhn}, \bibinfo{person}{Ognjen
+  Arandjelovi{\'c}}, {and} \bibinfo{person}{Jakob~Nikolas Kather}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{LLM Agents Making Agent Tools}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2502.11705}}
+  (\bibinfo{year}{2025}).
+\newblock
+
+
+\bibitem[Xia et~al\mbox{.}(2026)]%
+        {xia2026toolgenesis}
+\bibfield{author}{\bibinfo{person}{Bowei Xia}, \bibinfo{person}{Mengkang Hu},
+  \bibinfo{person}{Shijian Wang}, \bibinfo{person}{Jiarui Jin},
+  \bibinfo{person}{Wenxiang Jiao}, \bibinfo{person}{Yuan Lu},
+  \bibinfo{person}{Kexin Li}, {and} \bibinfo{person}{Ping Luo}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{Tool-Genesis: A Task-Driven Tool Creation Benchmark
+  for Self-Evolving Language Agents}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2603.05578}}
+  (\bibinfo{year}{2026}).
+\newblock
+
+
+\bibitem[Zhang et~al\mbox{.}(2026)]%
+        {zhang2026coevoskills}
+\bibfield{author}{\bibinfo{person}{Hanrong Zhang}, \bibinfo{person}{Shicheng
+  Fan}, \bibinfo{person}{Henry~Peng Zou}, \bibinfo{person}{Yankai Chen},
+  \bibinfo{person}{Zhenting Wang}, \bibinfo{person}{Jiayu Zhou},
+  {et~al\mbox{.}}} \bibinfo{year}{2026}\natexlab{}.
+\newblock \showarticletitle{CoEvoSkills: Self-Evolving Agent Skills via
+  Co-Evolutionary Verification}.
+\newblock \bibinfo{journal}{\emph{arXiv preprint arXiv:2604.01687}}
+  (\bibinfo{year}{2026}).
+\newblock
+
+
+\end{thebibliography}

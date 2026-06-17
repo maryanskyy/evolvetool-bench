@@ -1,0 +1,199 @@
+\onecolumn
+\appendix
+\section{Artifact Gallery}
+\label{app:artifact_gallery}
+
+The benchmark preserves every synthesised tool to disk under
+\texttt{results\_full/<config>/tools/<session>/<name>.py} (plus a
+\texttt{.meta.json} with the per-tool TQS scores). This appendix presents
+a side-by-side gallery of representative tools from the two
+tool-creating systems with multi-seed preserved source --- Code-Evol
+(semantic-$Q$ run) and CREATOR-style --- to make the per-tool failure
+modes the benchmark surfaces concrete. Per-dimension scores are shown
+inline ($C$, $R$, $G$, $Q$ and the composite TQS); bold indicates
+$\geq 0.5$.
+
+\subsection{Code-Evol/Sonnet (semantic $Q$)}
+
+15 tools were synthesised and preserved on disk across 9 sessions.
+Below we show 5 representative tools spanning the quality
+spectrum: correct exemplars, fragile high-$Q$/low-$C$ tools, duplicates,
+and trivial (low-TQS) cases.
+
+\noindent \textbf{Correct exemplar} \textit{(passes hidden tests with $C{\geq}0.5$)}\\
+    \texttt{\textbf{http\_get\_with\_headers}} \footnotesize\textit{(api\_orchestration\_s1)}\quad $C{=}\textbf{0.50}$\;$R{=}\textbf{0.50}$\;$G{=}\textbf{0.50}$\;$Q{=}\textbf{1.00}$\;$\text{TQS}{=}\textbf{0.62}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def http_get_with_headers(url: str, headers: dict) -> str:
+    """Make an HTTP GET request with custom headers."""
+    import urllib.request
+    import urllib.error
+
+    try:
+        # Create request object with custom headers
+        request = urllib.request.Request(url)
+    # ...
+    except Exception as e:
+        return f"Error: {str(e)}"
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Correct exemplar} \textit{(passes hidden tests with $C{\geq}0.5$)}\\
+    \texttt{\textbf{compute\_stats}} \footnotesize\textit{(numerical\_s1)}\quad $C{=}\textbf{0.50}$\;$R{=}\textbf{0.50}$\;$G{=}\textbf{0.50}$\;$Q{=}\textbf{1.00}$\;$\text{TQS}{=}\textbf{0.62}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def compute_stats(data: list[float]) -> dict[str, float]:
+    """Calculate basic statistical measures for a numerical dataset."""
+    import math
+
+    try:
+        if not data:
+            return {"error": "Empty dataset provided"}
+
+    # ...
+    except Exception as e:
+        return {"error": f"Computation failed: {str(e)}"}
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Fragile} \textit{(high $Q$, low $C$ -- looks well-formed, fails on hidden inputs)}\\
+    \texttt{\textbf{hmac\_sha256}} \footnotesize\textit{(api\_orchestration\_s1)}\quad $C{=}0.00$\;$R{=}\textbf{0.50}$\;$G{=}0.00$\;$Q{=}\textbf{1.00}$\;$\text{TQS}{=}0.38$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def hmac_sha256(secret: str, message: str) -> str:
+    """Generate HMAC-SHA256 hash for authentication and security purposes."""
+    import hmac
+    import hashlib
+
+    try:
+        # Handle None inputs explicitly
+        if secret is None or message is None:
+    # ...
+    except Exception as e:
+        return f"Error generating HMAC-SHA256: {str(e)}"
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Fragile} \textit{(high $Q$, low $C$ -- looks well-formed, fails on hidden inputs)}\\
+    \texttt{\textbf{compute\_crc32}} \footnotesize\textit{(data\_transform\_s5)}\quad $C{=}0.00$\;$R{=}\textbf{1.00}$\;$G{=}\textbf{1.00}$\;$Q{=}\textbf{1.00}$\;$\text{TQS}{=}\textbf{0.75}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def compute_crc32(data: bytes) -> int:
+    """Compute CRC32 checksum for data integrity verification."""
+    import struct
+
+    try:
+        if not isinstance(data, bytes):
+            return -1
+
+    # ...
+    except Exception:
+        return -1
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Duplicate} \textit{(synthesised across multiple sessions)}\\
+    \texttt{\textbf{decode\_base64}} \footnotesize\textit{(data\_transform\_s5)}\quad $C{=}\textbf{0.50}$\;$R{=}\textbf{0.50}$\;$G{=}\textbf{0.50}$\;$Q{=}\textbf{1.00}$\;$\text{TQS}{=}\textbf{0.62}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def decode_base64(encoded_string: str) -> bytes:
+    """Decode base64 encoded binary data into bytes."""
+    import base64
+
+    # Validate input type
+    if not isinstance(encoded_string, str):
+        raise TypeError(f"Expected string, got {type(encoded_string).__name__}")
+
+    # ...
+        # Return empty bytes on any decoding error (invalid base64, etc.)
+        return b''
+\end{lstlisting}
+    \vspace{0.8em}
+
+\subsection{CREATOR-style/Sonnet}
+
+18 tools were synthesised and preserved on disk across 9 sessions.
+Below we show 5 representative tools spanning the quality
+spectrum: correct exemplars, fragile high-$Q$/low-$C$ tools, duplicates,
+and trivial (low-TQS) cases.
+
+\noindent \textbf{Correct exemplar} \textit{(passes hidden tests with $C{\geq}0.5$)}\\
+    \texttt{\textbf{decode\_guardian\_minimal\_data}} \footnotesize\textit{(data\_transform\_s5)}\quad $C{=}\textbf{0.50}$\;$R{=}\textbf{0.50}$\;$G{=}\textbf{0.50}$\;$Q{=}\textbf{0.89}$\;$\text{TQS}{=}\textbf{0.60}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def decode_guardian_minimal_data(base64_data):
+    """Decode minimal GUARDIAN data format handling single blocks and edge cases."""
+    import base64
+    import struct
+
+    try:
+        # Decode base64 data
+        raw_data = base64.b64decode(base64_data)
+    # ...
+    except Exception as e:
+        return {'text': '', 'integrity': False, 'blocks_processed': 0, 'details': f'Error: {str(e)}'}
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Correct exemplar} \textit{(passes hidden tests with $C{\geq}0.5$)}\\
+    \texttt{\textbf{decode\_qlog\_with\_continuations}} \footnotesize\textit{(data\_transform\_s3)}\quad $C{=}\textbf{0.50}$\;$R{=}\textbf{0.50}$\;$G{=}\textbf{0.50}$\;$Q{=}\textbf{0.89}$\;$\text{TQS}{=}\textbf{0.60}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def decode_qlog_with_continuations(base64_data):
+    """Decode QLOG data and merge continuation entries with their parent entries."""
+    import base64
+    import struct
+    from datetime import datetime, timezone
+
+    # Decode base64 data
+    binary_data = base64.b64decode(base64_data)
+    # ...
+
+    return merged_entries
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Fragile} \textit{(high $Q$, low $C$ -- looks well-formed, fails on hidden inputs)}\\
+    \texttt{\textbf{fetch\_all\_users\_with\_pagination}} \footnotesize\textit{(api\_orchestration\_s1)}\quad $C{=}0.00$\;$R{=}\textbf{0.50}$\;$G{=}\textbf{1.00}$\;$Q{=}\textbf{0.89}$\;$\text{TQS}{=}\textbf{0.60}$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def fetch_all_users_with_pagination(base_url="http://127.0.0.1:18080/api/users"):
+    """Utility: Fetches all users from a paginated API endpoint using cursor-based pagination.
+Continues fetching until has_more is False, collecting all user data across pages."""
+    import urllib.request
+    import urllib.parse
+    import json
+
+    all_users = []
+    cursor = None
+    # ...
+        'names': names
+    }
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Fragile} \textit{(high $Q$, low $C$ -- looks well-formed, fails on hidden inputs)}\\
+    \texttt{\textbf{decode\_qlog\_binary\_data}} \footnotesize\textit{(data\_transform\_s3)}\quad $C{=}0.00$\;$R{=}\textbf{0.50}$\;$G{=}0.00$\;$Q{=}\textbf{0.78}$\;$\text{TQS}{=}0.32$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def decode_qlog_binary_data(base64_data):
+    """Decode QLOG (Quantized Log Format) binary data into structured log records."""
+    import base64
+    import struct
+    from datetime import datetime, timezone
+
+    # Decode base64 data
+    binary_data = base64.b64decode(base64_data)
+    # ...
+
+    return records
+\end{lstlisting}
+    \vspace{0.8em}
+
+\noindent \textbf{Trivial} \textit{(low overall TQS)}\\
+    \texttt{\textbf{deserialize\_tpack}} \footnotesize\textit{(data\_transform\_s4)}\quad $C{=}0.00$\;$R{=}\textbf{0.50}$\;$G{=}0.00$\;$Q{=}\textbf{0.67}$\;$\text{TQS}{=}0.29$
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily,language=Python,frame=none,xleftmargin=1em,breaklines=true,postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},showstringspaces=false]
+def deserialize_tpack(base64_data):
+    """Deserialize TPACK (Tagged Pack Format) binary data into Python objects."""
+    import base64
+    import struct
+
+    def parse_varint(data, offset):
+        result = 0
+        shift = 0
+    # ...
+    result, _ = parse_value(binary_data, 0)
+    return result
+\end{lstlisting}
+    \vspace{0.8em}

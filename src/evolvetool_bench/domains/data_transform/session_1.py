@@ -146,6 +146,7 @@ TASKS = [
             "Return the decoded records as a JSON array of objects."
         ),
         task_type=TaskType.GAP,
+        capability_id="abr_binary_decode",
         expected=RECORDS_1,
         hidden_tests=[
             # v1 cases
@@ -182,6 +183,7 @@ TASKS = [
             "Return the matrix as a list of lists (rows x cols)."
         ),
         task_type=TaskType.GAP,
+        capability_id="rle_decompress",
         expected=MATRIX_1,
         hidden_tests=[
             # v1 cases
@@ -219,6 +221,7 @@ TASKS = [
             "Return as JSON array of objects."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="abr_binary_decode",
         reuses_task="gap_1",
         expected=RECORDS_2,
     ),
@@ -230,6 +233,7 @@ TASKS = [
             "Return as list of lists."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="rle_decompress",
         reuses_task="gap_2",
         expected=MATRIX_2,
     ),
@@ -243,6 +247,7 @@ TASKS = [
             f"Data: {ABR_1}"
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="abr_decode_plus_hash",
         composes_tasks=["gap_1", "seed_2"],
     ),
 
@@ -255,6 +260,7 @@ TASKS = [
             "Return as JSON array."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="abr_binary_decode",
         reuses_task="gap_1",
         expected=[{"item": "pen", "price": "1.50"}, {"item": "book", "price": "12.99"}],
     ),
@@ -269,6 +275,7 @@ TASKS = [
             "Return as JSON array of objects."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="abr_binary_decode",
         breaks_task="gap_1",
     ),
     Task(
@@ -280,6 +287,7 @@ TASKS = [
             "Return as list of lists."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="rle_decompress",
         breaks_task="gap_2",
         expected=MATRIX_ADVERSARIAL,
     ),

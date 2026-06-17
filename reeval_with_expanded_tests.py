@@ -44,16 +44,56 @@ for factory in SESSION_FACTORIES:
     SESSIONS_BY_ID[s.id] = s
 
 
-def _gather_tests_for_session(session_id: str) -> tuple[list[dict], list[dict]]:
-    """Return (all_hidden, all_adversarial) tests across the session's gap tasks."""
+def _resolve_capability_tasks(session, task) -> list:
+    """Return the task(s) that DEFINE the capability a tool implements.
+
+    Capability tests live on the gap task that introduces a capability. A tool
+    may be created at a gap task (its own tests apply), or at a variant/regress
+    task (``reuses_task``), an adversarial task (``breaks_task``), or a compose
+    task (``composes_tasks``). We follow those linkages to the task(s) carrying
+    the hidden/adversarial tests so each tool is scored ONLY against the tests
+    for its own capability -- not the union of every gap task in the session.
+    """
+    if task is None:
+        return []
+    # A task that carries its own tests defines a capability directly.
+    if task.hidden_tests or task.adversarial_tests:
+        return [task]
+    by_id = {t.id: t for t in session.tasks}
+    refs: list[str] = []
+    if getattr(task, "reuses_task", None):
+        refs.append(task.reuses_task)
+    if getattr(task, "breaks_task", None):
+        refs.append(task.breaks_task)
+    if getattr(task, "composes_tasks", None):
+        refs.extend(task.composes_tasks)
+    resolved, seen = [], set()
+    for ref in refs:
+        cap = by_id.get(ref)
+        if cap is not None and cap.id not in seen and (cap.hidden_tests or cap.adversarial_tests):
+            resolved.append(cap)
+            seen.add(cap.id)
+    return resolved
+
+
+def _tests_for_tool(session_id: str, created_at_task: str) -> tuple[list[dict], list[dict]]:
+    """Return (hidden, adversarial) tests for the SPECIFIC capability of one tool.
+
+    Replaces the previous behaviour of pooling every gap task's tests and
+    applying them to every preserved tool, which incorrectly scored a tool for
+    capability A against the hidden tests for capability B.
+    """
     s = SESSIONS_BY_ID.get(session_id)
     if not s:
         return [], []
+    # ``created_at_task`` is stored as the task id (e.g. "gap_1", "adversarial_2").
+    task = next((t for t in s.tasks if t.id == created_at_task), None)
+    if task is None:
+        return [], []
     hidden, adversarial = [], []
-    for t in s.tasks:
-        if t.task_type.value == "gap":
-            hidden.extend(t.hidden_tests or [])
-            adversarial.extend(t.adversarial_tests or [])
+    for cap in _resolve_capability_tasks(s, task):
+        hidden.extend(cap.hidden_tests or [])
+        adversarial.extend(cap.adversarial_tests or [])
     return hidden, adversarial
 
 
@@ -67,8 +107,10 @@ def reeval_tool(meta_path: str) -> dict | None:
     source = open(source_path).read()
     session_id = os.path.basename(os.path.dirname(meta_path))
 
-    # Build a ToolRecord and run the evaluator with this session's expanded tests
-    hidden, adversarial = _gather_tests_for_session(session_id)
+    # Build a ToolRecord and evaluate it ONLY against the tests for its own
+    # capability (resolved from created_at_task via the session linkages).
+    created_at_task = meta.get("created_at_task", "")
+    hidden, adversarial = _tests_for_tool(session_id, created_at_task)
     if not hidden and not adversarial:
         return None
 
@@ -76,7 +118,8 @@ def reeval_tool(meta_path: str) -> dict | None:
         name=meta["name"],
         implementation=source,
         test_suite="",
-        created_at_task=meta.get("created_at_task", ""),
+        created_at_task=created_at_task,
+        source_task_id=created_at_task,
         version=meta.get("version", 1),
     )
     evaluate_tool(tool, hidden_tests=hidden, adversarial_tests=adversarial)

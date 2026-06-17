@@ -320,6 +320,7 @@ TASKS = [
             "Also include the decoded timestamp as ISO format string."
         ),
         task_type=TaskType.GAP,
+        capability_id="qlog_decode",
         expected=PARSED_1,
         hidden_tests=[
             # v1
@@ -362,6 +363,7 @@ TASKS = [
             "Return the filtered records."
         ),
         task_type=TaskType.GAP,
+        capability_id="qlog_severity_filter",
         expected=ERRORS_ONLY_1,
         hidden_tests=[
             # v1
@@ -404,6 +406,7 @@ TASKS = [
             "Return parsed log records."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="qlog_decode",
         reuses_task="gap_1",
         expected=PARSED_2,
     ),
@@ -415,6 +418,7 @@ TASKS = [
             "Return filtered records."
         ),
         task_type=TaskType.VARIANT,
+        capability_id="qlog_severity_filter",
         reuses_task="gap_2",
         expected=[
             {"severity": "WARN", "subsystem": 3, "message": "Slow query detected: 1532ms"},
@@ -432,6 +436,7 @@ TASKS = [
             f"Data: {QLOG_1}"
         ),
         task_type=TaskType.COMPOSE,
+        capability_id="qlog_decode_plus_aggregate",
         composes_tasks=["gap_1", "gap_2"],
         expected=SEVERITY_COUNTS_1,
     ),
@@ -445,6 +450,7 @@ TASKS = [
             "Return parsed log records."
         ),
         task_type=TaskType.REGRESS,
+        capability_id="qlog_decode",
         reuses_task="gap_1",
         expected=[{"severity": "WARN", "subsystem": 7, "message": "Disk usage at 85 percent"}],
     ),
@@ -465,6 +471,7 @@ TASKS = [
             "Return parsed records including a 'context' dict for entries that have it."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="qlog_decode",
         breaks_task="gap_1",
     ),
     Task(
@@ -477,6 +484,7 @@ TASKS = [
             "Return the merged log records (continuation entries folded into their parent)."
         ),
         task_type=TaskType.ADVERSARIAL,
+        capability_id="qlog_decode",
         breaks_task="gap_1",
         expected=[
             {"severity": "ERROR", "subsystem": 1,

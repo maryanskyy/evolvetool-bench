@@ -10,12 +10,12 @@
     "code_quality": 0.7777777777777778
   },
   "scores_v3": {
-    "tqs": 0.3194444444444444,
+    "tqs": 0.2638888888888889,
     "correctness": 0.0,
     "robustness": 0.5,
     "generality": 0.0,
-    "code_quality": 0.7777777777777778
+    "code_quality": 0.5555555555555556
   },
-  "n_hidden_v3": 10,
-  "n_adversarial_v3": 10
+  "n_hidden_v3": 5,
+  "n_adversarial_v3": 5
 }
